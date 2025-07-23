@@ -1,0 +1,5 @@
+<included>
+    <logger name="org.springframework.security" level="trace" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+</included>
