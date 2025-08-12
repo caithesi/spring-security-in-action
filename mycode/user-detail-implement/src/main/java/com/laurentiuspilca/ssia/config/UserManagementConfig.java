@@ -18,15 +18,24 @@ import java.util.List;
  */
 @Configuration
 public class UserManagementConfig {
+    /**
+     * user detail service using in memory implement, this is for proof of concept only
+     * @return
+     */
 //    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails u = new User("john", "12345", "read");
-//        List<UserDetails> users = List.of(u);
-//        return new InMemoryUserDetailsService(users);
-//    }
+    public UserDetailsService userDetailsService() {
+        UserDetails u = new User("john", "12345", "read");
+        List<UserDetails> users = List.of(u);
+        return new InMemoryUserDetailsService(users);
+    }
 
 
-    @Bean
+    /**
+     * user detail service using default JdbcUserDetailsManager, that it run query to get user by default from spring
+     * @param dataSource
+     * @return
+     */
+//    @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
             return new JdbcUserDetailsManager(dataSource);
     }
