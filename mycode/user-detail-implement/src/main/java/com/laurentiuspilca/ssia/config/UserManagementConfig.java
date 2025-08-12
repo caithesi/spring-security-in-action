@@ -20,6 +20,7 @@ import java.util.List;
 public class UserManagementConfig {
     /**
      * user detail service using in memory implement, this is for proof of concept only
+     *
      * @return
      */
 //    @Bean
@@ -32,13 +33,25 @@ public class UserManagementConfig {
 
     /**
      * user detail service using default JdbcUserDetailsManager, that it run query to get user by default from spring
+     *
      * @param dataSource
      * @return
      */
 //    @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
-            return new JdbcUserDetailsManager(dataSource);
+        return new JdbcUserDetailsManager(dataSource);
     }
+
+    @Bean
+    public UserDetailsService JdbcUserDetailsManagerWithCustomQueries(DataSource dataSource) {
+        String usersByUsernameQuery = "select username, password, enabled from users where username = ?";
+        String authsByUserQuery = "select username, authority from spring.authorities where username = ?";
+        var userDetailsManager = new JdbcUserDetailsManager(dataSource);
+        userDetailsManager.setUsersByUsernameQuery(usersByUsernameQuery);
+        userDetailsManager.setAuthoritiesByUsernameQuery(authsByUserQuery);
+        return userDetailsManager;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
