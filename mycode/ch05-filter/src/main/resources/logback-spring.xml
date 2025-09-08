@@ -17,4 +17,7 @@
     </root>
     <!-- LOG spring security -->
     <include resource="./logconfig/spring_security_log.xml"/>
+    <logger name="com.thesi.ssia" level="trace" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
 </configuration>

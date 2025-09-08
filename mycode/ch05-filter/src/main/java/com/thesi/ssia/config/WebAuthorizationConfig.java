@@ -16,7 +16,8 @@ public class WebAuthorizationConfig {
     public SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
 //                .addFilterBefore(new DummyFilter("implicitly before http basic "), BasicAuthenticationFilter.class)
-                .httpBasic(Customizer.withDefaults())
+//                .httpBasic(Customizer.withDefaults())
+                .addFilterBefore(new RequestIdValidationFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(c -> c.anyRequest().permitAll());
         //this may not work due to addFilter need class has order
         //however, this is a spring filter, not a spring security filter, so it doesnt have order
